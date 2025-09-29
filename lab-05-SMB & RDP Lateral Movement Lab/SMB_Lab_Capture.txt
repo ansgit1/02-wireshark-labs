@@ -1,0 +1,29 @@
+SMB Lab Capture 
+
+Purpose:
+This lab demonstrates SMB (Server Message Block) communication between two Windows 10 guest machines. The goal is to observe SMB traffic, including file access and authentication as a SOC analyst perspective.
+
+Setup:
+- Two Windows 10 virtual machines (guests) in VMware, bridged network.
+- Host machine: Windows 11, used for packet capture.
+- SMB share created on one guest; files accessed/edited from the other guest.
+- Network traffic captured on the host using Wireshark.
+
+Tools Used:
+- Wireshark (on Win11 host)
+- Windows 10 guests (VMware)
+
+Display filters  
+
+ tcp.port == 445   shows SMB traffic by port 
+ smb || smb2      to see smb2 traffic 
+
+
+Observations:
+- Tracked file creation and write operations across the SMB share.
+- Observed NTLM authentication exchanges (`NTLMSSP`) during session setup.
+- No lateral movement was performed — this was normal file share access between two guests.
+
+Notes:
+- If SMB3 encryption is enabled, filenames/contents may be opaque; rely on metadata (IPs, auths, volume).
+- Useful quick filters: `frame contains "NTLMSSP"`, `smb2 && (smb2.cmd == 5 || smb2.cmd == 9)`

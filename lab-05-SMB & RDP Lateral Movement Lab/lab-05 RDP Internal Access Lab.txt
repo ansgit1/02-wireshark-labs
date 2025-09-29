@@ -1,0 +1,33 @@
+RDP Internal Access Lab
+
+Steps completed so far:
+
+Set up Kali VM and Windows 10 VM with bridged network.
+
+Verified that both VMs are pingable.
+
+On Windows 10 VM, enabled RDP via sysdm.cpl → Remote.
+
+Noted the Windows 10 VM IP for RDP connection.
+
+On Kali, used xfreerdp /v:<Windows_IP> to connect to Windows 10 VM.
+
+Verified that the RDP session opens (black screen initially, then desktop appears).
+
+Next steps with Wireshark:
+
+Open Wireshark on Kali (or Windows host).
+
+Select the network interface connected to the bridged network.
+
+Set display/capture filters:
+
+tcp.port == 445 → SMB
+
+tcp.port == 3389 → RDP
+
+Start capturing traffic before initiating RDP or any SMB activity.
+
+Perform your RDP session and any SMB testing.
+
+Save PCAPs and annotate key packets (RDP handshake, SMB negotiation)

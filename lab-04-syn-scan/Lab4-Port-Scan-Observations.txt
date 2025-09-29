@@ -1,0 +1,27 @@
+Objective: Observe network scanning behavior (SYN packets, RST responses).
+
+Setup / Tools:
+
+Attacker: Kali VM → nmap -sS 192.168.8.100
+
+Target: Win11 host running Wireshark
+
+What we did:
+
+Started Wireshark on Win11.
+
+Ran nmap -sS from Kali to Win11.
+
+Captured SYN packets, SYN-ACKs (open ports), and RSTs (closed ports).
+
+Saved capture (.pcapng), terminal output, screenshots, and notes.
+
+Key Observation:
+
+SYN scan generates traffic to multiple ports.
+
+Open ports respond with SYN-ACK.
+
+Closed ports respond with RST.
+
+If you want, I can also make an even sho

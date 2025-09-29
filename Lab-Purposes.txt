@@ -1,0 +1,23 @@
+Baseline browsing
+Example: Employee opens YouTube — DNS lookup, TLS 1.3 handshake or QUIC over UDP/443, then steady video traffic.
+SOC takeaway: Know normal domains, protocols (QUIC vs TCP), and typical byte patterns to spot deviations.
+
+Follow a single conversation
+Example: Isolate tcp.stream eq 5 showing GET /api/user → 200 OK with JSON payload.
+SOC takeaway: You can see full request/response metadata and payload to confirm legitimate vs malicious data transfers.
+
+Simulated credential leak (cleartext POST)
+Example: User logs into http://insecure.example/login → POST body contains username=alice&password=1234 in cleartext.
+SOC takeaway: Cleartext POSTs expose creds — alert on HTTP POSTs to external/unexpected hosts.
+
+SYN scan (nmap -sS)
+Example: One IP sends hundreds of SYNs to many ports on a server, few or no ACKs follow.
+SOC takeaway: Many SYNs → likely reconnaissance; flag sources with high SYN-to-complete ratios.
+
+SMB / RDP detection
+Example: Host A connects to Host B on TCP/445 (SMB) or TCP/3389 (RDP) with repeated failed logins.
+SOC takeaway: Repeated auth failures or unexpected SMB/RDP sessions suggest lateral-movement or brute-force attempts.
+
+DNS noisy / exfil simulation
+Example: Host queries a1b2c3d4e5.leak.example.com, x9k8j7... .leak.example.com many times with long/random labels.
+SOC takeaway: Long/random subdomains and high-frequency DNS queries to rare domains = suspicious (possible exfiltration/beaconing).

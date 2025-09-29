@@ -1,0 +1,14 @@
+Lab 6 — DNS Noisy/Exfil Simulation
+
+Overview: Simulate and detect noisy/random DNS queries on the network.
+
+Tools / Environment: Windows 11, Wireshark
+
+Example DNS queries seen: abcd1234.yourdomain.test
+
+Capture filter used: host 192.168.8.100 and port 53
+Display filter used: dns
+
+Conclusion: Captured noisy DNS queries on Windows 11 with Wireshark; shows how to detect unusual DNS patterns.
+
+purpose:  This lab helped me practice capturing and analyzing DNS traffic using Wireshark, applying filters, and spotting unusual or random DNS queries. It builds foundational skills for monitoring network traffic in a SOC environment
