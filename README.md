@@ -3,9 +3,7 @@
 This repository contains packet-capture labs and notes from hands-on exercises (Wireshark + network labs).  
 **Open `.pcapng` files locally with Wireshark** for full analysis.
 
-> **Repo layout:** (file tree)
-
-wireshhark-lab/
+> **Repo layout:** (file tree) wireshhark-lab/
 ├─ Lab-Purposes.txt
 ├─ lab-01-baseline-browse/
 │ ├─ baseline_browse (DNS queries, TLS handshakes).png
@@ -37,9 +35,3 @@ wireshhark-lab/
 ├─ dns_noisy_lab radnomdns.pcapng
 ├─ dns_noisy_lab.png
 └─ Lab6_DNS_Noisy_Overview.txt
-
-
-**Usage Tips:**
-- Open `.pcapng` files with Wireshark to inspect traffic.
-- PNGs show quick visuals of captured traffic.
-- TXT files contain observations and summaries for each lab.
