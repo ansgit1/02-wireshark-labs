@@ -1,9 +1,9 @@
-# 🛡️ Wireshark Lab Collection
+# Wireshark Lab
 
 This repository contains packet-capture labs and notes from hands-on exercises (Wireshark + network labs).  
 **Open `.pcapng` files locally with Wireshark** for full analysis.
 
-> **Repo layout:** (clickable links)
+> **Repo layout:** clickable links is not working , please find its as map
 
 - [wireshhark-lab](wireshhark-lab/)
   - [Lab-Purposes.txt](wireshhark-lab/Lab-Purposes.txt)
