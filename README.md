@@ -1,39 +1,55 @@
-# Wireshark Lab Collection
+Wireshark Labs — SOC Practice
 
-This repository contains packet-capture labs and notes from hands-on exercises (Wireshark + network labs).  
-**Open `.pcapng` files locally with Wireshark** for full analysis.
+Purpose
 
-> **Repo layout:** (clickable links is not working ,consider its as a map)
+This repository contains Wireshark labs to practice network analysis and SOC detection. Each lab shows normal or suspicious network behavior to help learn how to spot attacks.
 
-- [wireshhark-lab](wireshhark-lab/)
-  - [Lab-Purposes.txt](wireshhark-lab/Lab-Purposes.txt)
-  - [lab-01-baseline-browse](wireshhark-lab/lab-01-baseline-browse/)
-    - [baseline_browse%20(DNS%20queries,%20TLS%20handshakes).png](wireshhark-lab/lab-01-baseline-browse/baseline_browse%20(DNS%20queries,%20TLS%20handshakes).png)
-    - [baseline_browse.pcapng](wireshhark-lab/lab-01-baseline-browse/baseline_browse.pcapng)
-    - [win11_baseline_stream1.txt](wireshhark-lab/lab-01-baseline-browse/win11_baseline_stream1.txt)
-  - [lab-2-follow-stream](wireshhark-lab/lab-2-follow-stream/)
-    - [win11_post_stream.txt](wireshhark-lab/lab-2-follow-stream/win11_post_stream.txt)
-  - [lab-03-http-credential-leak](wireshhark-lab/lab-03-http-credential-leak/)
-    - [Lab%203%20Simulated%20HTTP%20Credential%20Leaak%20summary.txt](wireshhark-lab/lab-03-http-credential-leak/Lab%203%20Simulated%20HTTP%20Credential%20Leaak%20summary.txt)
-    - [lab-03_http-credential-leak.png](wireshhark-lab/lab-03-http-credential-leak/lab-03_http-credential-leak.png)
-    - [tcp_8000_traffic.pcapng](wireshhark-lab/lab-03-http-credential-leak/tcp_8000_traffic.pcapng)
-    - [win11_cleartext_post.pcapng](wireshhark-lab/lab-03-http-credential-leak/win11_cleartext_post.pcapng)
-    - [win11_to_win10_http_post_capture.pcapng](wireshhark-lab/lab-03-http-credential-leak/win11_to_win10_http_post_capture.pcapng)
-  - [lab-04-syn-scan](wireshhark-lab/lab-04-syn-scan/)
-    - [lab-04_synscan.pcapng](wireshhark-lab/lab-04-syn-scan/lab-04_synscan.pcapng)
-    - [lab-04_synscan_tcpflags.png](wireshhark-lab/lab-04-syn-scan/lab-04_synscan_tcpflags.png)
-    - [Lab4-Port-Scan-Observations.txt](wireshhark-lab/lab-04-syn-scan/Lab4-Port-Scan-Observations.txt)
-    - [nmap%20-sS-192.168.1.100-scan-result.png](wireshhark-lab/lab-04-syn-scan/nmap%20-sS-192.168.1.100-scan-result.png)
-    - [tcp.flags.syn==1%20&&%20tcp.flags.ack==1.png](wireshhark-lab/lab-04-syn-scan/tcp.flags.syn==1%20&&%20tcp.flags.ack==1.png)
-  - [lab-05-SMB & RDP Lateral Movement Lab](wireshhark-lab/lab-05-SMB%20&%20RDP%20Lateral%20Movement%20Lab/)
-    - [lab-05 RDP Internal Access Lab.txt](wireshhark-lab/lab-05-SMB%20&%20RDP%20Lateral%20Movement%20Lab/lab-05%20RDP%20Internal%20Access%20Lab.txt)
-    - [RDP_Internal_Access from kali.png](wireshhark-lab/lab-05-SMB%20&%20RDP%20Lateral%20Movement%20Lab/RDP_Internal_Access%20from%20kali.png)
-    - [RDP_Internal_Access kali to windows.png](wireshhark-lab/lab-05-SMB%20&%20RDP%20Lateral%20Movement%20Lab/RDP_Internal_Access%20kali%20to%20windows.png)
-    - [smb_explorer_win10.png](wireshhark-lab/lab-05-SMB%20&%20RDP%20Lateral%20Movement%20Lab/smb_explorer_win10.png)
-    - [SMB_Lab_Capture.txt](wireshhark-lab/lab-05-SMB%20&%20RDP%20Lateral%20Movement%20Lab/SMB_Lab_Capture.txt)
-    - [smb_lab_traffic.png](wireshhark-lab/lab-05-SMB%20&%20RDP%20Lateral%20Movement%20Lab/smb_lab_traffic.png)
-    - [smblab.pcapng](wireshhark-lab/lab-05-SMB%20&%20RDP%20Lateral%20Movement%20Lab/smblab.pcapng)
-  - [lab-6-DNS-Noisy](wireshhark-lab/lab-6-DNS-Noisy/)
-    - [dns_noisy_lab%20radnomdns.pcapng](wireshhark-lab/lab-6-DNS-Noisy/dns_noisy_lab%20radnomdns.pcapng)
-    - [dns_noisy_lab.png](wireshhark-lab/lab-6-DNS-Noisy/dns_noisy_lab.png)
-    - [Lab6_DNS_Noisy_Overview.txt](wireshhark-lab/lab-6-DNS-Noisy/Lab6_DNS_Noisy_Overview.txt)
+Labs
+1. Baseline Browsing - Open YouTube → DNS → TLS/QUIC → streaming
+2. Follow a TCP Conversation - tcp.stream == 5 shows GET → 200 OK
+3. Cleartext Credential Leak - POST to http://insecure.example/login with username & password
+4. SYN Scan (scanning) - Many SYNs, few ACKs
+5. SMB / RDP Detection - Connections on TCP/445 or TCP/3389 with repeated failed logins
+6. Noisy / Exfil DNS - Many queries for long/random subdomains
+
+Tools Used
+
+Wireshark / tshark
+Nmap
+Kali Linux (attacker VM)
+Windows RDP / SMB clients
+Browser for HTTP/HTTPS tests
+
+How to Run
+
+1. Set up attacker and target VMs on a test network
+2. Capture traffic with Wireshark/tshark
+3. Perform the activity (browse, scan, login, etc.)
+4. Open the capture in Wireshark and inspect
+
+What I Learned From This Lab
+
+Web / Streaming - Watch known domains and protocols (QUIC/UDP or TCP)
+TCP Streams - Follow streams to see full requests and responses
+HTTP POSTs - Cleartext POSTs can leak passwords. Alert on unexpected HTTP logins
+SYN Scans - Many SYNs with few ACKs usually mean scanning
+SMB / RDP - Unexpected sessions or repeated failed logins may indicate lateral movement
+DNS - Lots of queries to long/random subdomains may indicate beaconing or data exfiltration
+
+Display & Capture Filters
+
+Display Filters (Wireshark, after capture)
+tls || quic - show web traffic (HTTPS / QUIC)
+http.request.method == "POST" - show HTTP POSTs
+tcp.stream eq 5 - follow a specific TCP conversation
+tcp.flags.syn == 1 && tcp.flags.ack == 0 - show SYN scans
+tcp.port == 445 - SMB traffic
+tcp.port == 3389 - RDP traffic
+dns - DNS queries
+
+Capture Filters (BPF, when recording)
+
+tcp port 443 or udp port 443 - capture web traffic
+tcp port 80 - capture HTTP
+udp port 53 - capture DNS
+tcp port 445 or tcp port 3389 - capture SMB/RDP
